@@ -83,6 +83,10 @@ public class JugadorAnimado {
 			if (Juego.abajo)
 				this.y+=velocidad;
 		}
+		if(this.y<=0)
+			this.y++;
+		if(this.y>=467)
+			this.y--;
 	}
 
 	public void pintar(GraphicsContext graficos) {

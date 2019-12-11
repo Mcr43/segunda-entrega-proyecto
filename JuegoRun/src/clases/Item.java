@@ -45,5 +45,10 @@ public class Item {
 		}else {
 			this.velocidad = 1; 
 		}
+		if (Juego.derecha)
+			this.x-=velocidad;
+		
+		if (Juego.izquierda)
+			this.x+=velocidad;
 	}
 }
