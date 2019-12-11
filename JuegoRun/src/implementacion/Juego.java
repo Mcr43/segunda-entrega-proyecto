@@ -129,7 +129,10 @@ public class Juego extends Application{
 	
 	public void cargarItems() {
 		for(int i=0;i<mapa.length;i++) {
-			items.add(new Item((i+1)*200, 310, 0, 0, "item"));
+			int rand = (int)(Math.random()*8)+1;
+			items.add(new Item((i+1)*200, rand*70, 0, 0, "kunai"));
+			int rand1 = (int)(Math.random()*8)+1;
+			items.add(new Item((i+1)*200, rand1*70, 0, 0, "item"));
 		}
 	}
 
