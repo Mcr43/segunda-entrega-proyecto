@@ -76,13 +76,13 @@ public class JugadorAnimado {
 			this.x-=velocidad;*/
 
 		//System.out.println("y = " + this.y);
-
-		if (Juego.arriba) {
-			this.y-=velocidad;
+		if(this.y>0 && this.y<467) {
+			if (Juego.arriba)
+				this.y-=velocidad;
+			
+			if (Juego.abajo)
+				this.y+=velocidad;
 		}
-
-		if (Juego.abajo)
-			this.y+=velocidad;
 	}
 
 	public void pintar(GraphicsContext graficos) {
