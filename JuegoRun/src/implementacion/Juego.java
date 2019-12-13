@@ -6,6 +6,7 @@ import java.util.HashMap;
 import clases.Fondo;
 import clases.Item;
 import clases.JugadorAnimado;
+import clases.Obstaculos;
 import clases.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -25,6 +26,7 @@ public class Juego extends Application{
 	private Canvas canvas;
 	private GraphicsContext graficos;
 	private int puntuacion = 0;
+	private int vidas = 3;
 	//private Jugador jugador;
 	private JugadorAnimado jugadorAnimado;
 	public static boolean derecha=true;
@@ -35,11 +37,9 @@ public class Juego extends Application{
 	public static HashMap<String, Image> imagenes; //Shift+Ctrl+O
 	private Fondo fondo;
 	private Fondo fondo1;
-	private Item item;
-	private Item item2;
-	private Item item3;
 	
 	private ArrayList<Item> items;
+	private ArrayList<Obstaculos> obstaculos;
 	//private ArrayList<Image> imagenes;
 
 	private ArrayList<Tile> tiles;
@@ -110,6 +110,7 @@ public class Juego extends Application{
 		canvas  = new Canvas(800,500);
 		imagenes = new HashMap<String,Image>();
 		items = new ArrayList<Item>();
+		obstaculos = new ArrayList<Obstaculos>();
 		/*item = new Item(200, 310, 0, 0, "item");
 		item2 = new Item(300, 310, 0, 0, "item");
 		item3 = new Item(900, 310, 0, 0, "item");*/
@@ -130,7 +131,7 @@ public class Juego extends Application{
 	public void cargarItems() {
 		for(int i=0;i<mapa.length;i++) {
 			int rand = (int)(Math.random()*8)+1;
-			items.add(new Item((i+1)*200, rand*70, 0, 0, "kunai"));
+			obstaculos.add(new Obstaculos((i+1)*200, rand*70, 0, 0, "kunai"));
 			int rand1 = (int)(Math.random()*8)+1;
 			items.add(new Item((i+1)*200, rand1*70, 0, 0, "item"));
 		}
@@ -141,14 +142,17 @@ public class Juego extends Application{
 		graficos.fillRect(0, 0, 800, 500);
 		graficos.setFill(Color.BLACK);
 		graficos.fillText("Puntuacion: " + puntuacion, 10, 10);
+		graficos.fillText("Vidas " + vidas, 10, 20);
 		//jugador.pintar(graficos);
 		fondo1.pintar(graficos);
 		fondo.pintar(graficos);
 		///Pintar tiles
 		for (int i=0;i<tiles.size();i++)
 			tiles.get(i).pintar(graficos);
-		for(int j=0;j<mapa.length;j++)
+		for(int j=0;j<mapa.length;j++) {
 			items.get(j).pintar(graficos);
+			obstaculos.get(j).pintar(graficos);
+		}
 		/*item.pintar(graficos);
 		item2.pintar(graficos);
 		item3.pintar(graficos);*/
@@ -249,6 +253,8 @@ public class Juego extends Application{
 		for(int i=0;i<mapa.length;i++) {
 			jugadorAnimado.verificarColisiones(items.get(i));
 			items.get(i).mover();
+			jugadorAnimado.verificarColisiones(obstaculos.get(i));
+			obstaculos.get(i).mover();
 		}
 		fondo1.mover();
 		fondo.mover();
@@ -268,9 +274,4 @@ public class Juego extends Application{
 			fondo1.setX((int)imagenes.get("fondo").getWidth()+fondo.getX());
 		}
 	}
-
-	public void moverMapa() {
-		
-	}
-
 }

@@ -16,6 +16,7 @@ public class JugadorAnimado {
 	private HashMap<String, Animacion> animaciones;
 	private String animacionActual;
 	private int puntuacion = 0;
+	private int vidas = 3;
 
 	//Coordenadas para el fragmento de la imagen a pintar
 	private int xImagen;
@@ -56,6 +57,12 @@ public class JugadorAnimado {
 	}
 	public void setIndiceImagen(String indiceImagen) {
 		this.indiceImagen = indiceImagen;
+	}
+	public int getVidas() {
+		return vidas;
+	}
+	public void setVidas(int vidas) {
+		this.vidas = vidas;
 	}
 
 	public void actualizarAnimacion(double t) {
@@ -98,7 +105,8 @@ public class JugadorAnimado {
 				this.anchoImagen, this.altoImagen
 		);
 		//graficos.fillRect(this.x, this.y, this.anchoImagen, this.altoImagen);
-		graficos.fillText("Puntuacion " + puntuacion, 0, 400);
+		graficos.fillText("Puntuacion " + puntuacion, 0, 10);
+		graficos.fillText("vidas " + vidas, 0, 20);
 	}
 
 	public Rectangle obtenerRectangulo() {
@@ -130,11 +138,21 @@ public class JugadorAnimado {
 			animaciones.put("descanso",animacionDescanso);
 	}
 
-	public void verificarColisiones(Item item) {
-		if (this.obtenerRectangulo().intersects(item.obtenerRectangulo().getBoundsInLocal())) {
-				if (!item.isCapturado())
+	public void verificarColisiones(Obstaculos obstaculos) {
+		if (this.obtenerRectangulo().intersects(obstaculos.obtenerRectangulo().getBoundsInLocal())) {
+				if (!obstaculos.isCapturado())
+					this.vidas-=1;
+				obstaculos.setCapturado(true);
+				if(vidas==0)
+					Juego.main(null);
+		}
+	}
+	
+	public void verificarColisiones(Item items) {
+		if (this.obtenerRectangulo().intersects(items.obtenerRectangulo().getBoundsInLocal())) {
+				if (!items.isCapturado())
 					this.puntuacion+=5;
-				item.setCapturado(true);
+				items.setCapturado(true);
 		}
 	}
 
