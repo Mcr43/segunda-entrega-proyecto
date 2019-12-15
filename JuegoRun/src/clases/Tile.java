@@ -6,14 +6,14 @@ import javafx.scene.canvas.GraphicsContext;
 public class Tile {
     private int x;
     private int y;
-    //Parametros dentro de la imagen principal
+
     private int altoImagen;
     private int anchoImagen;
     private int xImagen;
     private int yImagen;
     private String indiceImagen;
     private int velocidad;
-    //private int invertir=1;
+
     public Tile(int x, int y, int anchoImagen, int altoImagen, int xImagen, int yImagen, String indiceImagen,
                 int velocidad) {
         super();
@@ -32,7 +32,6 @@ public class Tile {
         this.y = y;
         this.indiceImagen = indiceImagen;
         this.velocidad = velocidad;
-        //this.invertir = invertir;
         switch(tipoTile){
             case 1:
                 this.altoImagen = 70;
@@ -119,17 +118,8 @@ public class Tile {
                 this.anchoImagen, this.altoImagen
         );
         mover(this.x);
-
-			/*
-			 * graficos.drawImage(
-				Juego.imagenes.get(this.indiceImagen),
-				this.xImagen, this.yImagen,
-				this.anchoImagen, this.altoImagen,
-				this.x + (invertir==-1?70:0), this.y,
-				this.anchoImagen*invertir, this.altoImagen
-			);*/
-
     }
+    
     public void mover(int x) {
     	if (Juego.accion) {
 			this.x-=5;

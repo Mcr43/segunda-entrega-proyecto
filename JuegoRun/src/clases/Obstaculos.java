@@ -4,18 +4,14 @@ import implementacion.Juego;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
-public class Obstaculos {
-	private int x;
-	private int y;
+public class Obstaculos extends Posicion{
 	private int ancho;
 	private int alto;
 	private int velocidad;
 	private String indiceImagen;
 	private boolean capturado;
 	public Obstaculos(int x, int y, int ancho, int alto, String indiceImagen) {
-		super();
-		this.x = x;
-		this.y = y;
+		super(x, y);
 		this.ancho = ancho;
 		this.alto = alto;
 		this.indiceImagen = indiceImagen;
@@ -27,8 +23,21 @@ public class Obstaculos {
 		//graficos.fillRect(this.x, this.y, 70, 35);
 	}
 	
+	public int getAncho() {
+		return ancho;
+	}
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+	public int getAlto() {
+		return alto;
+	}
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+	
 	public Rectangle obtenerRectangulo() {
-		return new Rectangle(this.x, this.y, 70, 60);
+		return new Rectangle(this.x, this.y, 70, 21);
 	}
 
 	public boolean isCapturado() {
@@ -43,12 +52,9 @@ public class Obstaculos {
 		if (Juego.accion) {
 			this.velocidad = 5;
 		}else {
-			this.velocidad = 1; 
+			this.velocidad = 2; 
 		}
 		if (Juego.derecha)
 			this.x-=velocidad;
-		
-		if (Juego.izquierda)
-			this.x+=velocidad;
 	}
 }

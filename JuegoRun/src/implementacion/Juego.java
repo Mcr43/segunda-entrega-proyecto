@@ -25,26 +25,46 @@ public class Juego extends Application{
 	private Group root;
 	private Canvas canvas;
 	private GraphicsContext graficos;
-	private int puntuacion = 0;
-	private int vidas = 3;
-	//private Jugador jugador;
 	private JugadorAnimado jugadorAnimado;
 	public static boolean derecha=true;
 	public static boolean izquierda=false;
 	public static boolean arriba=false;
 	public static boolean abajo=false;
 	public static boolean accion=false;
-	public static HashMap<String, Image> imagenes; //Shift+Ctrl+O
+	public static HashMap<String, Image> imagenes;
 	private Fondo fondo;
 	private Fondo fondo1;
 	
 	private ArrayList<Item> items;
 	private ArrayList<Obstaculos> obstaculos;
-	//private ArrayList<Image> imagenes;
 
 	private ArrayList<Tile> tiles;
 
 	private int[][] mapa = {
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
+			{1,2,4,4,4,3,1,1},
 			{1,2,4,4,4,3,1,1},
 			{1,2,4,4,4,3,1,1},
 			{1,2,4,4,4,3,1,1},
@@ -101,7 +121,6 @@ public class Juego extends Application{
 	}
 
 	public void inicializarComponentes() {
-		//jugador = new Jugador(-50,400,"goku",1);
 		jugadorAnimado = new JugadorAnimado(20,287,"madara",5, "correr");
 		fondo = new Fondo(0,0,2,"fondo");
 		fondo1 = new Fondo(0,0,2,"fondo1");
@@ -111,9 +130,6 @@ public class Juego extends Application{
 		imagenes = new HashMap<String,Image>();
 		items = new ArrayList<Item>();
 		obstaculos = new ArrayList<Obstaculos>();
-		/*item = new Item(200, 310, 0, 0, "item");
-		item2 = new Item(300, 310, 0, 0, "item");
-		item3 = new Item(900, 310, 0, 0, "item");*/
 		cargarImagenes();
 		cargarTiles();
 		cargarItems();
@@ -130,10 +146,10 @@ public class Juego extends Application{
 	
 	public void cargarItems() {
 		for(int i=0;i<mapa.length;i++) {
-			int rand = (int)(Math.random()*8)+1;
+			int rand = (int)(Math.random()*7)+1;
 			obstaculos.add(new Obstaculos((i+1)*200, rand*70, 0, 0, "kunai"));
-			int rand1 = (int)(Math.random()*8)+1;
-			items.add(new Item((i+1)*200, rand1*70, 0, 0, "item"));
+			int rand1 = (int)(Math.random()*7)+1;
+			items.add(new Item((i+1)*150, rand1*70, 0, 0, "item"));
 		}
 	}
 
@@ -141,21 +157,14 @@ public class Juego extends Application{
 		graficos.setFill(Color.WHITE);
 		graficos.fillRect(0, 0, 800, 500);
 		graficos.setFill(Color.BLACK);
-		graficos.fillText("Puntuacion: " + puntuacion, 10, 10);
-		graficos.fillText("Vidas " + vidas, 10, 20);
-		//jugador.pintar(graficos);
 		fondo1.pintar(graficos);
 		fondo.pintar(graficos);
-		///Pintar tiles
 		for (int i=0;i<tiles.size();i++)
 			tiles.get(i).pintar(graficos);
 		for(int j=0;j<mapa.length;j++) {
 			items.get(j).pintar(graficos);
 			obstaculos.get(j).pintar(graficos);
 		}
-		/*item.pintar(graficos);
-		item2.pintar(graficos);
-		item3.pintar(graficos);*/
 		jugadorAnimado.pintar(graficos);
 	}
 
@@ -174,14 +183,7 @@ public class Juego extends Application{
 		escena.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent evento) {
-				//System.out.println(evento.getCode().toString());
 				switch (evento.getCode().toString()) {
-					case "RIGHT":
-						derecha=true;
-						break;
-					case "LEFT":
-						izquierda=true;
-						break;
 					case "UP":
 						arriba=true;
 						break;
@@ -190,8 +192,6 @@ public class Juego extends Application{
 						break;
 					case "SPACE":
 						Juego.accion = true;
-						//jugador.setVelocidad(10);
-						//jugador.setIndiceImagen("goku-furioso");
 						break;
 					case "ESCAPE":
 						System.exit(0);
@@ -205,12 +205,6 @@ public class Juego extends Application{
 			@Override
 			public void handle(KeyEvent evento) {
 				switch (evento.getCode().toString()) {
-					case "RIGHT":
-						//derecha=false;
-						break;
-					case "LEFT":
-						izquierda=false;
-						break;
 					case "UP":
 						arriba=false;
 						break;
@@ -219,8 +213,6 @@ public class Juego extends Application{
 						break;
 					case "SPACE":
 						Juego.accion = false;
-						//jugador.setVelocidad(1);
-						//jugador.setIndiceImagen("goku");
 						break;
 				}
 
@@ -238,7 +230,6 @@ public class Juego extends Application{
 			public void handle(long tiempoActualNanoSegundos) {
 				double t = (tiempoActualNanoSegundos - tiempoInicial) / 1000000000.0;
 				pintar();
-				//jugador.mover();
 				actualizar(t);
 
 			}
@@ -256,12 +247,9 @@ public class Juego extends Application{
 			jugadorAnimado.verificarColisiones(obstaculos.get(i));
 			obstaculos.get(i).mover();
 		}
+		jugadorAnimado.puntuacion();
 		fondo1.mover();
 		fondo.mover();
-		/*item.mover();
-		item2.mover();
-		item3.mover();*/
-		//jugadorAnimado.puntuacion();
 		cambiarFondo();
 	}
 
